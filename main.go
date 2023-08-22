@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sort"
 
 	_ "embed"
 )
@@ -57,6 +58,17 @@ func main() {
 	var items []item
 	err = json.Unmarshal(dat, &items)
 	check(err)
+
+	sort.Slice(items, func(i, j int) bool {
+		a := items[i]
+		b := items[j]
+
+		if a.Materia == b.Materia {
+			return a.Turma < b.Turma
+		}
+
+		return a.Materia < b.Materia
+	})
 
 	handleGet := func(w http.ResponseWriter, r *http.Request) {
 		indexPageTemplate.Execute(w, items)
