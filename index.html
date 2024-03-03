@@ -12,7 +12,11 @@
     <main class="container">
         <hgroup>
             <h1>Turmas FGA 2023</h1>
-            <p><a href="https://github.com/guilherme-puida/gruposfga">veja o código</a></p>
+            <p>
+              <a href="https://github.com/guilherme-puida/gruposfga">GitHub</a>
+              |
+              <a href="/json">Ver JSON</a>
+            </p>
         </hgroup>
         {{range .}}
         <div>
@@ -25,9 +29,9 @@
                 <input type="hidden" name="Turma" value="{{.Turma}}">
                 <div class="grid">
                     <label for="Link">
-                        <input type="text" name="Link" value="{{.Link}}" placeholder="Bota o link aqui patrão!">
+                        <input type="text" name="Link" value="{{.Link}}" placeholder="Link">
                     </label>
-                    <button type="submit">salvar</button>
+                    <button type="submit">Salvar</button>
                 </div>
             </form>
         </div>
