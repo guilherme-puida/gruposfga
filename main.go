@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"sort"
+	"strings"
 
 	_ "embed"
 )
@@ -70,7 +71,29 @@ func main() {
 		return a.Materia < b.Materia
 	})
 
+	searchItems := func(items []item, query string) []item {
+		var filteredItems []item
+		query = strings.ToLower(query)
+
+		for _, item := range items {
+			if strings.Contains(strings.ToLower(item.Materia), query) ||
+				strings.Contains(strings.ToLower(item.Turma), query) ||
+				strings.Contains(strings.ToLower(item.Professor), query) ||
+				strings.Contains(strings.ToLower(item.Horario), query) ||
+				strings.Contains(strings.ToLower(item.Link), query) {
+				filteredItems = append(filteredItems, item)
+			}
+		}
+		return filteredItems
+	}
+
 	handleGet := func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query().Get("q")
+		if query != "" {
+			filteredItems := searchItems(items, query)
+			indexPageTemplate.Execute(w, filteredItems)
+			return
+		}
 		indexPageTemplate.Execute(w, items)
 	}
 

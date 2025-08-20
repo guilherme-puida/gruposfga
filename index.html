@@ -18,6 +18,14 @@
               <a href="/json">Ver JSON</a>
             </p>
         </hgroup>
+        <form action="/" method="get">
+            <div class="grid">
+                <label for="search">
+                    <input type="text" name="q" placeholder="Search">
+                </label>
+                <button type="submit">Search</button>
+            </div>
+        </form>
         {{range .}}
         <div>
             <hgroup>
